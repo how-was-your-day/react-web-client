@@ -1,21 +1,15 @@
-import { useState } from "react"
 import { Link } from "react-router-dom"
 
-export default function UserManager({user, setUser}) {
+export default function UserManager({user}) {
 
-    if (user) {
-        return (
-            <span>
-                <h3>{user.name}</h3>
-                <Link to="logout">Sign Out</Link>
-            </span>
-        )
-    } else {
-        return (
-            <span>
-                <Link to="login">Sign In</Link>
-                <Link to="register">Sign Up</Link>
-            </span>
-        )
-    }
+    return user ? 
+        <span className="right container">
+            <p>Hello <b>{user.name}</b> </p>
+            <Link className="rounded blue button" to="logout">Sign Out</Link>
+        </span>
+        :
+        <span className="right container">
+            <Link className="rounded blue button" to={`login?redirect=${window.location.pathname}`}>Sign In</Link>
+            <Link className="rounded blue button" to="register">Sign Up</Link>
+        </span>
 }

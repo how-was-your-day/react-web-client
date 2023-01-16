@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 
-import Root , {loader as rootLoader} from './routes/root';
+import Root from './routes/root';
 import ErrorPage from './error-page';
 import Login from './routes/login'
 
@@ -13,17 +13,31 @@ import {
 import NewDay from './routes/day/new';
 import DayPage from './routes/day/day-page';
 import Register from './routes/register';
+import Home from './routes/home';
+import Logout from './routes/logout';
+import './index.css'
+import Day, {loader as dayLoader} from './routes/day/day';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import DayEdit from './routes/day/edit';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root/>,
     errorElement: <ErrorPage/>,
-    loader: rootLoader,
     children: [
+      {
+        index: true,
+        element: <Home/>,
+      },
       {
         path: "/login",
         element: <Login/>
+      },
+      {
+        path: "/logout",
+        element: <Logout/>
       },
       {
         path: "/register",
@@ -32,6 +46,16 @@ const router = createBrowserRouter([
       {
         path: "/day",
         element: <DayPage/>
+      },
+      {
+        path: "/day/:dayId",
+        element: <Day/>,
+        loader: dayLoader
+      },
+      {
+        path: "/day/:dayId/edit",
+        element: <DayEdit/>,
+        loader: dayLoader
       },
       {
         path: "/day/new",
